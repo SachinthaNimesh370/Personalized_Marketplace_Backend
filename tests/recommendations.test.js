@@ -241,3 +241,123 @@ describe('PrimeMarket Personalized Feed & Ranking Engine', () => {
     expect(sig1Contact).toBeGreaterThan(sig50);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Regression Suite – covers gaps identified during final verification audit
+// ─────────────────────────────────────────────────────────────────────────────
+describe('PrimeMarket Regression Tests', () => {
+  // R1: VIEW interaction persists in DB and VIEWED_PENALTY applies
+  test('R1. VIEW persists to DB and penalizes the viewed listing below unviewed peers', async () => {
+    const viewRes = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L001', type: 'view' });
+    expect(viewRes.status).toBe(201);
+    expect(viewRes.body.success).toBe(true);
+
+    // Confirm persisted in MongoDB
+    const stored = await Interaction.findOne({ userId: 'user_a', listingId: 'L001', type: 'view' });
+    expect(stored).not.toBeNull();
+    expect(stored.type).toBe('view');
+
+    const recs = await request(app).get('/api/recommendations?userId=user_a');
+    expect(recs.status).toBe(200);
+
+    // L001 (viewed, popularity 95) should score LOWER than L003 (not viewed, popularity 85)
+    // due to VIEWED_PENALTY = 0.3x multiplier on the final score
+    const l001 = recs.body.find((i) => i.listingId === 'L001');
+    const l003 = recs.body.find((i) => i.listingId === 'L003');
+    if (l001 && l003) {
+      expect(l001.score).toBeLessThan(l003.score);
+    }
+  });
+
+  // R2: CONTACT via the full API flow persists and excludes the listing
+  test('R2. CONTACT via API persists to DB and removes contacted listing from feed', async () => {
+    const contactRes = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L003', type: 'contact' });
+    expect(contactRes.status).toBe(201);
+    expect(contactRes.body.success).toBe(true);
+
+    const stored = await Interaction.findOne({ userId: 'user_a', listingId: 'L003', type: 'contact' });
+    expect(stored).not.toBeNull();
+
+    const recs = await request(app).get('/api/recommendations?userId=user_a');
+    const ids = recs.body.map((i) => i.listingId);
+    expect(ids).not.toContain('L003');
+  });
+
+  // R3: /api/users/:id/saved returns only that user's saved IDs — no cross-user leakage
+  test('R3. /api/users/:id/saved returns correct IDs with strict per-user isolation', async () => {
+    await request(app).post('/api/interactions').send({ userId: 'user_a', listingId: 'L001', type: 'save' });
+    await request(app).post('/api/interactions').send({ userId: 'user_a', listingId: 'L002', type: 'save' });
+    await request(app).post('/api/interactions').send({ userId: 'user_b', listingId: 'L014', type: 'save' });
+
+    const savedA = await request(app).get('/api/users/user_a/saved');
+    expect(savedA.status).toBe(200);
+    expect(savedA.body).toContain('L001');
+    expect(savedA.body).toContain('L002');
+    expect(savedA.body).not.toContain('L014'); // user_b's save must NOT appear
+
+    const savedB = await request(app).get('/api/users/user_b/saved');
+    expect(savedB.status).toBe(200);
+    expect(savedB.body).toContain('L014');
+    expect(savedB.body).not.toContain('L001'); // user_a's saves must NOT appear
+    expect(savedB.body).not.toContain('L002');
+  });
+
+  // R4: 404 for unknown userId in both recommendations and interactions
+  test('R4. Unknown userId returns 404 from /api/recommendations and /api/interactions', async () => {
+    const recRes = await request(app).get('/api/recommendations?userId=ghost_user');
+    expect(recRes.status).toBe(404);
+
+    const intRes = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'ghost_user', listingId: 'L001', type: 'view' });
+    expect(intRes.status).toBe(404);
+  });
+
+  // R5: 404 for unknown listingId in interactions
+  test('R5. Unknown listingId returns 404 from /api/interactions', async () => {
+    const res = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L999', type: 'view' });
+    expect(res.status).toBe(404);
+  });
+
+  // R6: Recommendation feed items are sorted strictly by descending score
+  test('R6. /api/recommendations returns items in strictly descending score order', async () => {
+    await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L001', type: 'save' });
+
+    const recs = await request(app).get('/api/recommendations?userId=user_a');
+    expect(recs.status).toBe(200);
+    expect(recs.body.length).toBeGreaterThan(1);
+
+    const scores = recs.body.map((i) => i.score);
+    for (let i = 0; i < scores.length - 1; i++) {
+      expect(scores[i]).toBeGreaterThanOrEqual(scores[i + 1]);
+    }
+  });
+
+  // R7: signal() caps at n=20 — 1000 views cannot exceed 1 contact interaction
+  test('R7. signal() is capped at n=20: 1000 views score less than 1 contact', async () => {
+    const { signal, W } = require('../src/services/recommendationService');
+
+    // Cap verification: signal(view, 20) === signal(view, 100) === signal(view, 1000)
+    const sig20 = signal('view', 20);
+    const sig100 = signal('view', 100);
+    const sig1000 = signal('view', 1000);
+    expect(sig100).toBeCloseTo(sig20, 10);
+    expect(sig1000).toBeCloseTo(sig20, 10);
+
+    // Base weight: signal(view, 1) = W.view * (1 + ln(1)) = W.view * 1
+    expect(signal('view', 1)).toBeCloseTo(W.view, 10);
+    expect(signal('save', 1)).toBeCloseTo(W.save, 10);
+    expect(signal('contact', 1)).toBeCloseTo(W.contact, 10);
+
+    // Supremacy: 1 contact > 1000 views
+    expect(signal('contact', 1)).toBeGreaterThan(sig1000);
+  });
+});
