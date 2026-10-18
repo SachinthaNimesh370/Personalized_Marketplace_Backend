@@ -55,6 +55,7 @@ npm test
 | `GET` | `/api/listings` | Retrieve all 25 listings with resolved presigned image URLs |
 | `GET` | `/api/recommendations?userId=<id>` | Get personalized ranked feed (top 20) with score & reasons |
 | `POST` | `/api/interactions` | Record user activity: body `{ userId, listingId, type }` |
+| `GET` | `/api/users/:id/saved` | Return array of saved listing IDs for a user |
 | `GET` | `/api/users/:id/interactions` | Debug/demo endpoint to view all recorded actions for a user |
 
 ---
@@ -86,7 +87,7 @@ User profile aggregates accumulated signal across 4 dimensions:
 
 ### 3.4 Already-Interacted Listings Policy
 - **Contacted Listings**: Excluded from feed (user already completed conversion).
-- **Saved Listings**: Excluded from recommendation feed (shown with saved badge in UI).
+- **Saved Listings**: **Remain visible in the feed** with a `✓ Saved` badge and green highlight. The `isSaved` flag is attached in the API response and the frontend renders a persistent saved state.
 - **Viewed Listings**: Retained but penalized with `VIEWED_PENALTY = 0.3` to prioritize novel items while keeping strongly relevant items discoverable.
 
 ### 3.5 Cold-Start Handling
@@ -127,4 +128,5 @@ The test suite in `tests/recommendations.test.js` covers:
 1. **Cold Start**: Verifies default feed is non-empty, popularity ordered, interleaved by category, and labeled `"Popular right now"`.
 2. **Personalization & Isolation**: Demonstrates User A vehicle interactions do not contaminate User B property recommendations.
 3. **Repeat Handling & Exclusion**: Demonstrates 50 views cannot overpower a single save, and contacted items are excluded.
-4. **Bonus Validations**: Validates input rejection for invalid interaction types (400) and proves mathematical sub-linearity of `signal()`.
+4. **Duplicate Save Prevention**: Verifies repeated save clicks produce exactly 1 interaction record and do not inflate recommendation scores. Validates `/api/users/:id/saved` endpoint.
+5. **Bonus Validations**: Validates input rejection for invalid interaction types (400) and proves mathematical sub-linearity of `signal()`.
