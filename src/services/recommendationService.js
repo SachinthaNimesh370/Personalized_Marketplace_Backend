@@ -121,9 +121,9 @@ function rank(listings, interactions) {
   const byId = Object.fromEntries(listings.map((l) => [l.listingId, l]));
   const p = buildProfile(interactions, byId);
 
-  // Filter out contacted or saved listings
+  // Filter out contacted listings (saved listings remain visible in feed)
   const candidates = listings.filter(
-    (l) => !(p.seen[l.listingId] && (p.seen[l.listingId].contact || p.seen[l.listingId].save))
+    (l) => !(p.seen[l.listingId] && p.seen[l.listingId].contact)
   );
 
   return candidates

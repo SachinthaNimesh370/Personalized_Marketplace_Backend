@@ -36,7 +36,7 @@
     "location": "Negombo",
     "price": 9800000,
     "attributes": { "make": "Toyota", "model": "Prius", "year": 2016 },
-    "imageKey": null,
+    "imageKey": "listings/car4.jpg",
     "popularity": 78
   },
   {
@@ -46,7 +46,7 @@
     "location": "Colombo",
     "price": 9200000,
     "attributes": { "make": "Toyota", "model": "Axio", "year": 2019 },
-    "imageKey": null,
+    "imageKey": "listings/car5.jpg",
     "popularity": 82
   },
   {
@@ -56,7 +56,7 @@
     "location": "Colombo",
     "price": 11500000,
     "attributes": { "make": "Honda", "model": "Civic", "year": 2018 },
-    "imageKey": null,
+    "imageKey": "listings/car6.jpg",
     "popularity": 75
   },
   {
@@ -66,7 +66,7 @@
     "location": "Galle",
     "price": 5900000,
     "attributes": { "make": "Honda", "model": "Fit", "year": 2015 },
-    "imageKey": null,
+    "imageKey": "listings/car7.jpg",
     "popularity": 70
   },
   {
@@ -76,7 +76,7 @@
     "location": "Kandy",
     "price": 4800000,
     "attributes": { "make": "Suzuki", "model": "Wagon R", "year": 2017 },
-    "imageKey": null,
+    "imageKey": "listings/car8.jpg",
     "popularity": 72
   },
   {
@@ -86,7 +86,7 @@
     "location": "Negombo",
     "price": 5400000,
     "attributes": { "make": "Suzuki", "model": "Spacia", "year": 2019 },
-    "imageKey": null,
+    "imageKey": "listings/car9.jpg",
     "popularity": 64
   },
   {
@@ -96,7 +96,7 @@
     "location": "Galle",
     "price": 10500000,
     "attributes": { "make": "Toyota", "model": "Raize", "year": 2020 },
-    "imageKey": null,
+    "imageKey": "listings/car10.jpg",
     "popularity": 80
   },
   {
@@ -106,7 +106,7 @@
     "location": "Colombo",
     "price": 4900000,
     "attributes": { "make": "Nissan", "model": "Leaf", "year": 2018 },
-    "imageKey": null,
+    "imageKey": "listings/car11.jpg",
     "popularity": 60
   },
   {
@@ -116,7 +116,7 @@
     "location": "Kandy",
     "price": 22000000,
     "attributes": { "make": "Mitsubishi", "model": "Montero", "year": 2016 },
-    "imageKey": null,
+    "imageKey": "listings/car1.jpg",
     "popularity": 55
   },
   {
@@ -126,7 +126,7 @@
     "location": "Jaffna",
     "price": 4200000,
     "attributes": { "make": "Suzuki", "model": "Celerio", "year": 2019 },
-    "imageKey": null,
+    "imageKey": "listings/car2.jpg",
     "popularity": 66
   },
   {
@@ -156,7 +156,7 @@
     "location": "Galle",
     "price": 42000000,
     "attributes": { "propertyType": "apartment", "bedrooms": 2 },
-    "imageKey": null,
+    "imageKey": "listings/prop3.jpg",
     "popularity": 84
   },
   {
@@ -166,7 +166,7 @@
     "location": "Negombo",
     "price": 26000000,
     "attributes": { "propertyType": "house", "bedrooms": 3 },
-    "imageKey": null,
+    "imageKey": "listings/prop4.jpg",
     "popularity": 76
   },
   {
@@ -176,7 +176,7 @@
     "location": "Colombo",
     "price": 34000000,
     "attributes": { "propertyType": "apartment", "bedrooms": 2 },
-    "imageKey": null,
+    "imageKey": "listings/prop5.jpg",
     "popularity": 79
   },
   {
@@ -186,7 +186,7 @@
     "location": "Kandy",
     "price": 65000000,
     "attributes": { "propertyType": "house", "bedrooms": 5 },
-    "imageKey": null,
+    "imageKey": "listings/prop6.jpg",
     "popularity": 68
   },
   {
@@ -196,7 +196,7 @@
     "location": "Jaffna",
     "price": 18000000,
     "attributes": { "propertyType": "land", "perches": 15 },
-    "imageKey": null,
+    "imageKey": "listings/prop7.jpg",
     "popularity": 58
   },
   {
@@ -206,7 +206,7 @@
     "location": "Galle",
     "price": 85000000,
     "attributes": { "propertyType": "house", "bedrooms": 4 },
-    "imageKey": null,
+    "imageKey": "listings/prop8.jpg",
     "popularity": 86
   },
   {
@@ -216,7 +216,7 @@
     "location": "Colombo",
     "price": 19500000,
     "attributes": { "propertyType": "apartment", "bedrooms": 1 },
-    "imageKey": null,
+    "imageKey": "listings/prop9.jpg",
     "popularity": 74
   },
   {
@@ -226,7 +226,7 @@
     "location": "Negombo",
     "price": 12000000,
     "attributes": { "propertyType": "land", "perches": 15 },
-    "imageKey": null,
+    "imageKey": "listings/prop10.jpg",
     "popularity": 62
   },
   {
@@ -236,7 +236,7 @@
     "location": "Colombo",
     "price": 45000000,
     "attributes": { "propertyType": "house", "bedrooms": 4 },
-    "imageKey": null,
+    "imageKey": "listings/prop3.jpg",
     "popularity": 81
   },
   {
@@ -246,7 +246,7 @@
     "location": "Jaffna",
     "price": 22000000,
     "attributes": { "propertyType": "house", "bedrooms": 3 },
-    "imageKey": null,
+    "imageKey": "listings/prop4.jpg",
     "popularity": 52
   }
 ]

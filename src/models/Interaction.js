@@ -14,4 +14,10 @@ const interactionSchema = new mongoose.Schema(
 interactionSchema.index({ userId: 1, listingId: 1 });
 interactionSchema.index({ userId: 1, createdAt: -1 });
 
+// Prevent duplicate save interactions for the same user and listing
+interactionSchema.index(
+  { userId: 1, listingId: 1, type: 1 },
+  { unique: true, partialFilterExpression: { type: 'save' } }
+);
+
 module.exports = mongoose.model('Interaction', interactionSchema);

@@ -27,12 +27,17 @@ router.get('/', async (req, res) => {
 
     const ranked = rank(listings, interactions).slice(0, 20);
 
+    const savedListingIds = new Set(
+      interactions.filter((i) => i.type === 'save').map((i) => i.listingId)
+    );
+
     const feed = await Promise.all(
       ranked.map(async (r) => ({
         ...r.listing,
         score: r.score,
         reasons: r.reasons,
         imageUrl: await getImageUrl(r.listing.imageKey),
+        isSaved: savedListingIds.has(r.listing.listingId),
       }))
     );
 

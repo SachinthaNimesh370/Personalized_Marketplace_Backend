@@ -145,10 +145,13 @@ describe('PrimeMarket Personalized Feed & Ranking Engine', () => {
     const res = await request(app).get('/api/recommendations?userId=user_a');
     expect(res.status).toBe(200);
 
-    // Contacted listing (L005) and saved listing (L004) must NOT appear in the recommendations feed
+    // Contacted listing (L005) must NOT appear in feed, but saved listing (L004) persists in feed
     const listingIds = res.body.map((item) => item.listingId);
     expect(listingIds).not.toContain('L005');
-    expect(listingIds).not.toContain('L004');
+    expect(listingIds).toContain('L004');
+
+    const savedListing = res.body.find((item) => item.listingId === 'L004');
+    expect(savedListing.isSaved).toBe(true);
 
     // 50 views on L016 has a 0.3 VIEWED_PENALTY applied to L016
     // Verify that fresh vehicle listings rank higher than L016 due to save signal + viewed penalty
@@ -156,6 +159,52 @@ describe('PrimeMarket Personalized Feed & Ranking Engine', () => {
     if (l016Index !== -1) {
       expect(l016Index).toBeGreaterThan(0);
     }
+  });
+
+  // Test 5: Prevent duplicate SAVE records and duplicate score inflation
+  test('5. Prevent duplicate SAVE records: repeated save clicks do not create duplicate records or inflate recommendation scores', async () => {
+    // 1st save on L001
+    const res1 = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L001', type: 'save' });
+    expect([200, 201]).toContain(res1.status);
+    expect(res1.body.success).toBe(true);
+
+    const recs1 = await request(app).get('/api/recommendations?userId=user_a');
+    const score1 = recs1.body.find((item) => item.listingId === 'L001').score;
+
+    // 2nd save on same listing L001
+    const res2 = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L001', type: 'save' });
+    expect(res2.status).toBe(200);
+    expect(res2.body.success).toBe(true);
+    expect(res2.body.alreadySaved).toBe(true);
+
+    // 3rd save on same listing L001
+    const res3 = await request(app)
+      .post('/api/interactions')
+      .send({ userId: 'user_a', listingId: 'L001', type: 'save' });
+    expect(res3.status).toBe(200);
+
+    // Confirm only 1 interaction document exists for user_a + L001 + save in DB
+    const saveCount = await Interaction.countDocuments({
+      userId: 'user_a',
+      listingId: 'L001',
+      type: 'save',
+    });
+    expect(saveCount).toBe(1);
+
+    // Recommendation score must NOT be inflated by repeated saves
+    const recs2 = await request(app).get('/api/recommendations?userId=user_a');
+    const score2 = recs2.body.find((item) => item.listingId === 'L001').score;
+    expect(score2).toBe(score1);
+
+    // Saved endpoint /api/users/:id/saved returns listing ID
+    const savedRes = await request(app).get('/api/users/user_a/saved');
+    expect(savedRes.status).toBe(200);
+    expect(savedRes.body).toContain('L001');
+    expect(savedRes.body.filter((id) => id === 'L001').length).toBe(1);
   });
 
   // Test 4 (Bonus): Input validation & signal curve properties
