@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/users/:id/saved - Fetch saved listing IDs for a user
+router.get('/:id/saved', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const saves = await Interaction.find({ userId: id, type: 'save' }).lean();
+    const savedListingIds = saves.map((s) => s.listingId);
+    res.json(savedListingIds);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET /api/users/:id/interactions - Useful for debugging/demo
 router.get('/:id/interactions', async (req, res) => {
   try {

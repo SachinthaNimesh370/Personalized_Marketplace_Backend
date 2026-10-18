@@ -33,6 +33,19 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ error: `Listing with listingId "${listingId}" not found` });
     }
 
+    // Prevent duplicate SAVE records for the same user and listing
+    if (type === 'save') {
+      const existing = await Interaction.findOne({ userId, listingId, type: 'save' });
+      if (existing) {
+        return res.status(200).json({
+          success: true,
+          message: 'Listing already saved',
+          interaction: existing,
+          alreadySaved: true,
+        });
+      }
+    }
+
     const interaction = await Interaction.create({
       userId,
       listingId,
@@ -46,6 +59,19 @@ router.post('/', async (req, res) => {
       interaction,
     });
   } catch (error) {
+    if (error.code === 11000 && req.body && req.body.type === 'save') {
+      const existing = await Interaction.findOne({
+        userId: req.body.userId,
+        listingId: req.body.listingId,
+        type: 'save',
+      });
+      return res.status(200).json({
+        success: true,
+        message: 'Listing already saved',
+        interaction: existing,
+        alreadySaved: true,
+      });
+    }
     res.status(500).json({ error: error.message });
   }
 });
