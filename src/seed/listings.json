@@ -1,0 +1,252 @@
+[
+  {
+    "listingId": "L001",
+    "title": "Toyota Aqua S Grade 2018",
+    "category": "vehicle",
+    "location": "Colombo",
+    "price": 6200000,
+    "attributes": { "make": "Toyota", "model": "Aqua", "year": 2018 },
+    "imageKey": "listings/car1.jpg",
+    "popularity": 95
+  },
+  {
+    "listingId": "L002",
+    "title": "Honda Vezel Z Orange Edition 2017",
+    "category": "vehicle",
+    "location": "Colombo",
+    "price": 8500000,
+    "attributes": { "make": "Honda", "model": "Vezel", "year": 2017 },
+    "imageKey": "listings/car2.jpg",
+    "popularity": 90
+  },
+  {
+    "listingId": "L003",
+    "title": "Suzuki Alto 800 LXi 2015",
+    "category": "vehicle",
+    "location": "Kandy",
+    "price": 3200000,
+    "attributes": { "make": "Suzuki", "model": "Alto", "year": 2015 },
+    "imageKey": "listings/car3.jpg",
+    "popularity": 85
+  },
+  {
+    "listingId": "L004",
+    "title": "Toyota Prius 4th Gen 2016",
+    "category": "vehicle",
+    "location": "Negombo",
+    "price": 9800000,
+    "attributes": { "make": "Toyota", "model": "Prius", "year": 2016 },
+    "imageKey": null,
+    "popularity": 78
+  },
+  {
+    "listingId": "L005",
+    "title": "Toyota Corolla Axio Hybrid 2019",
+    "category": "vehicle",
+    "location": "Colombo",
+    "price": 9200000,
+    "attributes": { "make": "Toyota", "model": "Axio", "year": 2019 },
+    "imageKey": null,
+    "popularity": 82
+  },
+  {
+    "listingId": "L006",
+    "title": "Honda Civic Turbo RS 2018",
+    "category": "vehicle",
+    "location": "Colombo",
+    "price": 11500000,
+    "attributes": { "make": "Honda", "model": "Civic", "year": 2018 },
+    "imageKey": null,
+    "popularity": 75
+  },
+  {
+    "listingId": "L007",
+    "title": "Honda Fit GP5 Safety Package 2015",
+    "category": "vehicle",
+    "location": "Galle",
+    "price": 5900000,
+    "attributes": { "make": "Honda", "model": "Fit", "year": 2015 },
+    "imageKey": null,
+    "popularity": 70
+  },
+  {
+    "listingId": "L008",
+    "title": "Suzuki Wagon R Stingray 2017",
+    "category": "vehicle",
+    "location": "Kandy",
+    "price": 4800000,
+    "attributes": { "make": "Suzuki", "model": "Wagon R", "year": 2017 },
+    "imageKey": null,
+    "popularity": 72
+  },
+  {
+    "listingId": "L009",
+    "title": "Suzuki Spacia Custom 2019",
+    "category": "vehicle",
+    "location": "Negombo",
+    "price": 5400000,
+    "attributes": { "make": "Suzuki", "model": "Spacia", "year": 2019 },
+    "imageKey": null,
+    "popularity": 64
+  },
+  {
+    "listingId": "L010",
+    "title": "Toyota Raize Z Grade 2020",
+    "category": "vehicle",
+    "location": "Galle",
+    "price": 10500000,
+    "attributes": { "make": "Toyota", "model": "Raize", "year": 2020 },
+    "imageKey": null,
+    "popularity": 80
+  },
+  {
+    "listingId": "L011",
+    "title": "Nissan Leaf G Grade 2018",
+    "category": "vehicle",
+    "location": "Colombo",
+    "price": 4900000,
+    "attributes": { "make": "Nissan", "model": "Leaf", "year": 2018 },
+    "imageKey": null,
+    "popularity": 60
+  },
+  {
+    "listingId": "L012",
+    "title": "Mitsubishi Montero Sport 2016",
+    "category": "vehicle",
+    "location": "Kandy",
+    "price": 22000000,
+    "attributes": { "make": "Mitsubishi", "model": "Montero", "year": 2016 },
+    "imageKey": null,
+    "popularity": 55
+  },
+  {
+    "listingId": "L013",
+    "title": "Suzuki Celerio VXi 2019",
+    "category": "vehicle",
+    "location": "Jaffna",
+    "price": 4200000,
+    "attributes": { "make": "Suzuki", "model": "Celerio", "year": 2019 },
+    "imageKey": null,
+    "popularity": 66
+  },
+  {
+    "listingId": "L014",
+    "title": "Luxury Apartment at Havelock City",
+    "category": "property",
+    "location": "Colombo",
+    "price": 58000000,
+    "attributes": { "propertyType": "apartment", "bedrooms": 3 },
+    "imageKey": "listings/prop1.jpg",
+    "popularity": 92
+  },
+  {
+    "listingId": "L015",
+    "title": "Modern 4-Bedroom House in Anniewatte",
+    "category": "property",
+    "location": "Kandy",
+    "price": 38000000,
+    "attributes": { "propertyType": "house", "bedrooms": 4 },
+    "imageKey": "listings/prop2.jpg",
+    "popularity": 88
+  },
+  {
+    "listingId": "L016",
+    "title": "Sea View Apartment Galle Fort",
+    "category": "property",
+    "location": "Galle",
+    "price": 42000000,
+    "attributes": { "propertyType": "apartment", "bedrooms": 2 },
+    "imageKey": null,
+    "popularity": 84
+  },
+  {
+    "listingId": "L017",
+    "title": "Brand New 3-Bedroom House Negombo",
+    "category": "property",
+    "location": "Negombo",
+    "price": 26000000,
+    "attributes": { "propertyType": "house", "bedrooms": 3 },
+    "imageKey": null,
+    "popularity": 76
+  },
+  {
+    "listingId": "L018",
+    "title": "2-Bedroom High-Floor Apartment Rajagiriya",
+    "category": "property",
+    "location": "Colombo",
+    "price": 34000000,
+    "attributes": { "propertyType": "apartment", "bedrooms": 2 },
+    "imageKey": null,
+    "popularity": 79
+  },
+  {
+    "listingId": "L019",
+    "title": "Colonial Bungalow with Tea Garden",
+    "category": "property",
+    "location": "Kandy",
+    "price": 65000000,
+    "attributes": { "propertyType": "house", "bedrooms": 5 },
+    "imageKey": null,
+    "popularity": 68
+  },
+  {
+    "listingId": "L020",
+    "title": "Commercial Land Prime Location Jaffna Town",
+    "category": "property",
+    "location": "Jaffna",
+    "price": 18000000,
+    "attributes": { "propertyType": "land", "perches": 15 },
+    "imageKey": null,
+    "popularity": 58
+  },
+  {
+    "listingId": "L021",
+    "title": "Beachfront Villa with Pool",
+    "category": "property",
+    "location": "Galle",
+    "price": 85000000,
+    "attributes": { "propertyType": "house", "bedrooms": 4 },
+    "imageKey": null,
+    "popularity": 86
+  },
+  {
+    "listingId": "L022",
+    "title": "Compact Studio Apartment Colombo 03",
+    "category": "property",
+    "location": "Colombo",
+    "price": 19500000,
+    "attributes": { "propertyType": "apartment", "bedrooms": 1 },
+    "imageKey": null,
+    "popularity": 74
+  },
+  {
+    "listingId": "L023",
+    "title": "15 Perch Residential Land Negombo",
+    "category": "property",
+    "location": "Negombo",
+    "price": 12000000,
+    "attributes": { "propertyType": "land", "perches": 15 },
+    "imageKey": null,
+    "popularity": 62
+  },
+  {
+    "listingId": "L024",
+    "title": "Architect Designed Modern House Thalawathugoda",
+    "category": "property",
+    "location": "Colombo",
+    "price": 45000000,
+    "attributes": { "propertyType": "house", "bedrooms": 4 },
+    "imageKey": null,
+    "popularity": 81
+  },
+  {
+    "listingId": "L025",
+    "title": "Spacious Family Home with Garden",
+    "category": "property",
+    "location": "Jaffna",
+    "price": 22000000,
+    "attributes": { "propertyType": "house", "bedrooms": 3 },
+    "imageKey": null,
+    "popularity": 52
+  }
+]

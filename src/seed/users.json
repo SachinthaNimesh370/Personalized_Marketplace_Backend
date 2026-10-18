@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "user_a",
+    "name": "Nimal",
+    "label": "Nimal (property buyer)"
+  },
+  {
+    "_id": "user_b",
+    "name": "Kasun",
+    "label": "Kasun (vehicle buyer)"
+  }
+]

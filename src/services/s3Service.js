@@ -19,7 +19,7 @@ const s3 = new S3Client({
 async function getImageUrl(key) {
   if (!key) return null;
 
-  if (process.env.S3_MODE === 'mock') {
+  if (!process.env.S3_BUCKET || process.env.S3_MODE === 'mock') {
     const filename = key.replace(/^listings\//, '');
     return `/static/images/${filename}`;
   }
